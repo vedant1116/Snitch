@@ -89,3 +89,7 @@ export const login = async (req, res) => {
     }
 };
 
+export const googleCallback = async (req, res) => {
+    console.log(req.user)
+    res.redirect("http://localhost:5173/")
+}
