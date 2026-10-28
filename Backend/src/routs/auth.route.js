@@ -1,9 +1,10 @@
 import{Router} from "express"
 import { validateRegisteration, validateLogin } from "../validation/auth.validation.js";
-import { register, login , googleCallback } from "../controllers/auth.controller.js";
+import { register, login , googleCallback, getMe } from "../controllers/auth.controller.js";
 import passport from "passport";
 const authRouter = Router();
 
+authRouter.get('/me', getMe);
 authRouter.post('/register', validateRegisteration, register);
 authRouter.post('/login', validateLogin, login);    
 

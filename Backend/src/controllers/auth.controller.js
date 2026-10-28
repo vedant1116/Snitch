@@ -3,6 +3,35 @@ import userModel from "../models/user.model.js";
 import jwt from "jsonwebtoken"
 import { config } from "../config/config.js";
 
+export const getMe = async (req, res) => {
+    try {
+        const token = req.cookies?.token;
+        if (!token) {
+            return res.status(401).json({ message: "Not authenticated" });
+        }
+
+        const decoded = jwt.verify(token, config.JWT_SECRET);
+        const user = await userModel.findById(decoded.id).select("-password");
+
+        if (!user) {
+            return res.status(401).json({ message: "User not found" });
+        }
+
+        res.status(200).json({
+            success: true,
+            user: {
+                id: user._id,
+                fullname: user.fullname,
+                email: user.email,
+                phoneno: user.phoneno,
+                role: user.role
+            }
+        });
+    } catch (error) {
+        return res.status(401).json({ message: "Invalid or expired token" });
+    }
+};
+
 async function sendTokenResponse(user, res, message) {
     const token = jwt.sign({
         id: user._id,

@@ -1,4 +1,4 @@
-import { body ,  validationResult } from "express-validator"
+import { body, validationResult } from "express-validator";
 
 
 function validateRequest(req, res, next) {
@@ -46,4 +46,4 @@ export const validateLogin = [
     body("password")
         .notEmpty().withMessage("Password is required"),
     validateRequest
-];
+];

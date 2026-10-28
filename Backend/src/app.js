@@ -2,6 +2,7 @@ import express from "express"
 import morgan from "morgan"
 import cookieParser from "cookie-parser"
 import authRouter from "./routs/auth.route.js";
+import productRouter from "./routs/product.route.js";
 import passport from "passport"
 import { Strategy as GoogleStrategy } from "passport-google-oauth20"
 import { config } from "./config/config.js";
@@ -40,6 +41,7 @@ const allowedOrigins = [
 
 
 app.use("/api/auth",authRouter);
+app.use("/api/products",productRouter);
 
 
 
